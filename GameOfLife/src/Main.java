@@ -1,5 +1,4 @@
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -31,14 +30,21 @@ public class Main {
 
         System.out.println("Full cells at: " + Arrays.deepToString(fullCellsPosition));
 
-        char[][] field = new char[rows][columns];
+        //char[][] field = new char[rows][columns];
+        Cell[][] field = new Cell[rows][columns];
 
-        char dot = 46; //symbol . = 46;
-        char star = 42; //symbol * = 42;
+        char emptyCell = 46; //symbol . = 46;
+        char fullCell = 42; //symbol * = 42;
 
         for (int i = 0; i < rows; i += 1) {
             for (int j = 0; j < columns; j += 1) {
-                field[i][j] = dot;
+                //field[i][j] = emptyCell;
+                Cell cell = new Cell();
+
+                cell.isFullNow = false;
+                cell.symbol = emptyCell;
+
+                field[i][j] = cell;
             }
         }
 
@@ -46,11 +52,30 @@ public class Main {
             int x = fullCellsPosition[i][fullCellsRowIndex];
             int y = fullCellsPosition[i][fullCellsColumnIndex];
 
-            field[x][y] = star;
+            //field[x][y] = fullCell;
+            field[x][y].isFullNow = true;
+            field[x][y].symbol = fullCell;
         }
 
-        for (int i = 0; i < field.length; i += 1) {
-            System.out.println(Arrays.toString(field[i]));
+        for (int i = 0; i < rows; i += 1) {
+            for (int j = 0; j < columns; j += 1) {
+                System.out.print(field[i][j].symbol);
+            }
+
+            System.out.println();
         }
+
+        boolean isWin = false;
+        boolean isGameOver = false;
+
+        /*
+        while (!isWin || !isGameOver) {
+            for (int i = 0; i < rows; i += 1) {
+                for (int j = 0; j < columns; j += 1) {
+
+                }
+            }
+        }
+        */
     }
 }
