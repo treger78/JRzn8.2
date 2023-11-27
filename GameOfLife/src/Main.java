@@ -7,37 +7,46 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Enter field size - width and height:");
+        System.out.println("Enter field size - rows and columns:");
 
-        int width = scanner.nextInt();
-        int height = scanner.nextInt();
+        int rows = scanner.nextInt();
+        int columns = scanner.nextInt();
 
         System.out.println("Enter the number of non-empty cells:");
 
         int fullCells = scanner.nextInt();
 
-        HashMap<Integer, Integer> fullCellsPosition = new HashMap<>();
+        int[][] fullCellsPosition = new int[fullCells][2];
+
+        int fullCellsRowIndex = 0;
+        int fullCellsColumnIndex = 1;
 
         for (int i = 0; i < fullCells; i += 1) {
-            int randomWidth = ThreadLocalRandom.current().nextInt(0, width);
-            int randomHeight = ThreadLocalRandom.current().nextInt(0, height);
+            int randomRow = ThreadLocalRandom.current().nextInt(0, rows);
+            int randomColumn = ThreadLocalRandom.current().nextInt(0, columns);
 
-            fullCellsPosition.put(randomWidth, randomHeight);
+            fullCellsPosition[i][fullCellsRowIndex] = randomRow;
+            fullCellsPosition[i][fullCellsColumnIndex] = randomColumn;
         }
 
-        char[][] field = new char[width][height];
+        System.out.println("Full cells at: " + Arrays.deepToString(fullCellsPosition));
+
+        char[][] field = new char[rows][columns];
 
         char dot = 46; //symbol . = 46;
         char star = 42; //symbol * = 42;
 
-        for (int i = 0; i < width; i += 1) {
-            for (int j = 0; j < height; j += 1) {
-                if (fullCellsPosition.containsKey(i) && fullCellsPosition.get(i) == j) {
-                    field[i][j] = star;
-                } else {
-                    field[i][j] = dot;
-                }
+        for (int i = 0; i < rows; i += 1) {
+            for (int j = 0; j < columns; j += 1) {
+                field[i][j] = dot;
             }
+        }
+
+        for (int i = 0;  i < fullCells; i += 1) {
+            int x = fullCellsPosition[i][fullCellsRowIndex];
+            int y = fullCellsPosition[i][fullCellsColumnIndex];
+
+            field[x][y] = star;
         }
 
         for (int i = 0; i < field.length; i += 1) {
