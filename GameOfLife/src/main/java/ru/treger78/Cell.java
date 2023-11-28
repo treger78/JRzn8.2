@@ -1,3 +1,5 @@
+package main.java.ru.treger78;
+
 public class Cell {
     public boolean isFullNow;
     public boolean isWillBeFull;

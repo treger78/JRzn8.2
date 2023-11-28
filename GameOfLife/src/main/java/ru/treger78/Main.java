@@ -1,3 +1,5 @@
+package main.java.ru.treger78;
+
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
