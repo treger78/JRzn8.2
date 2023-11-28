@@ -72,6 +72,23 @@ public class Main {
             System.out.println();
         }
 
+        for (int i = 1; i < rows + 1; i += 1) {
+            for (int j = 1; j < columns + 1; j += 1) {
+                if (field[i][j].isFullNow) {
+                    field[i - 1][j - 1].fullNeighboursCount += 1;
+                    field[i - 1][j].fullNeighboursCount += 1;
+                    field[i - 1][j + 1].fullNeighboursCount += 1;
+
+                    field[i][j - 1].fullNeighboursCount += 1;
+                    field[i][j + 1].fullNeighboursCount += 1;
+
+                    field[i + 1][j - 1].fullNeighboursCount += 1;
+                    field[i + 1][j].fullNeighboursCount += 1;
+                    field[i + 1][j + 1].fullNeighboursCount += 1;
+                }
+            }
+        }
+
         boolean isWin = false;
         boolean isGameOver = false;
 
