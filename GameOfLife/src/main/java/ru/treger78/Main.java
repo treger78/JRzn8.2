@@ -22,14 +22,8 @@ public class Main {
         int fullCellsRowIndex = 0;
         int fullCellsColumnIndex = 1;
 
-        //Генерируем координаты полных ячеек
-        for (int i = 0; i < fullCells; i += 1) {
-            int randomRow = ThreadLocalRandom.current().nextInt(0, rows);
-            int randomColumn = ThreadLocalRandom.current().nextInt(0, columns);
-
-            fullCellsPosition[i][fullCellsRowIndex] = randomRow;
-            fullCellsPosition[i][fullCellsColumnIndex] = randomColumn;
-        }
+        calculateFullCellsPosition(fullCells, rows, columns, fullCellsPosition,
+                fullCellsRowIndex, fullCellsColumnIndex);
 
         System.out.println("Full cells at: " + Arrays.deepToString(fullCellsPosition));
 
@@ -38,38 +32,18 @@ public class Main {
         char emptyCell = '.';
         char fullCell = '*';
 
-        //Инициализируем поле, заполняя его пустыми ячейками
-        for (int i = 0; i < rows; i += 1) {
-            for (int j = 0; j < columns; j += 1) {
-                Cell cell = new Cell(false, emptyCell);
+        initField(rows, columns, emptyCell, field);
 
-                field[i][j] = cell;
-            }
-        }
+        addFullCellsByCalculatedPositions(fullCells, fullCellsPosition, fullCellsRowIndex,
+                fullCellsColumnIndex, field, fullCell);
 
-        //Добавляем на поле полные ячейки по сгенерированным ранее координатам
-        for (int i = 0;  i < fullCells; i += 1) {
-            int x = fullCellsPosition[i][fullCellsRowIndex];
-            int y = fullCellsPosition[i][fullCellsColumnIndex];
-
-            field[x][y].setFullNow(true);
-            field[x][y].setSymbol(fullCell);
-        }
-
-        boolean isWin = false;
-        boolean isGameOver = false;
+        boolean isWin = false; //Если следующее состояние повторяет текущее
+        boolean isGameOver = false; //Если не осталось ни одной полной ячейки
 
         while (!isWin || !isGameOver) {
             System.out.println();
 
-            //Выводим получившееся поле на экран
-            for (int i = 0; i < rows; i += 1) {
-                for (int j = 0; j < columns; j += 1) {
-                    System.out.print(field[i][j].getSymbol());
-                }
-
-                System.out.println();
-            }
+            printField(field, rows, columns);
 
             //Подсчитываем количество полных ячеек по соседству с каждой ячейкой
             for (int i = 0; i < rows; i += 1) {
@@ -268,19 +242,68 @@ public class Main {
                 }
             }
 
-            //Определяем будет ли ячейка полной или пустой в следующей генерации
-            for (int i = 0; i < rows; i += 1) {
-                for (int j = 0; j < columns; j += 1) {
-                    if (!field[i][j].isFullNow() && field[i][j].getFullNeighboursCount() == 3) {
-                        field[i][j].setSymbol(fullCell);
+            calculateNextGeneration(field, rows, columns, fullCell, emptyCell);
+        }
+    }
 
-                        continue;
-                    }
+    public static void calculateFullCellsPosition(int fullCells, int rows, int columns,
+                                                  int[][] fullCellsPosition, int fullCellsRowIndex,
+                                                  int fullCellsColumnIndex) {
+        for (int i = 0; i < fullCells; i += 1) {
+            int randomRow = ThreadLocalRandom.current().nextInt(0, rows);
+            int randomColumn = ThreadLocalRandom.current().nextInt(0, columns);
 
-                    if (field[i][j].isFullNow() && (field[i][j].getFullNeighboursCount() < 2 ||
-                            field[i][j].getFullNeighboursCount() > 3)) {
-                        field[i][j].setSymbol(emptyCell);
-                    }
+            fullCellsPosition[i][fullCellsRowIndex] = randomRow;
+            fullCellsPosition[i][fullCellsColumnIndex] = randomColumn;
+        }
+    }
+
+    public static void initField(int rows, int columns, char emptyCell, Cell[][] field) {
+        for (int i = 0; i < rows; i += 1) {
+            for (int j = 0; j < columns; j += 1) {
+                Cell cell = new Cell(false, emptyCell);
+
+                field[i][j] = cell;
+            }
+        }
+    }
+
+    public static void addFullCellsByCalculatedPositions(int fullCells, int[][] fullCellsPosition,
+                                                         int fullCellsRowIndex, int fullCellsColumnIndex,
+                                                         Cell[][] field, char fullCell) {
+        for (int i = 0;  i < fullCells; i += 1) {
+            int x = fullCellsPosition[i][fullCellsRowIndex];
+            int y = fullCellsPosition[i][fullCellsColumnIndex];
+
+            field[x][y].setFullNow(true);
+            field[x][y].setSymbol(fullCell);
+        }
+    }
+
+    public static void printField(Cell[][] field, int rows, int columns) {
+        for (int i = 0; i < rows; i += 1) {
+            for (int j = 0; j < columns; j += 1) {
+                System.out.print(field[i][j].getSymbol());
+            }
+
+            System.out.println();
+        }
+    }
+
+    public static void calculateNextGeneration(Cell[][] field, int rows, int columns, char fullCell, char emptyCell) {
+        for (int i = 0; i < rows; i += 1) {
+            for (int j = 0; j < columns; j += 1) {
+                if (!field[i][j].isFullNow() && field[i][j].getFullNeighboursCount() == 3) {
+                    field[i][j].setSymbol(fullCell);
+                    field[i][j].setFullNeighboursCount(0);
+
+                    continue;
+                }
+
+                if (field[i][j].isFullNow() && (field[i][j].getFullNeighboursCount() < 2 ||
+                        field[i][j].getFullNeighboursCount() > 3)) {
+                    field[i][j].setSymbol(emptyCell);
+                    field[i][j].setFullNeighboursCount(0);
                 }
             }
         }
