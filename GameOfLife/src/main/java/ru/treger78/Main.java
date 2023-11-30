@@ -56,222 +56,233 @@ public class Main {
             field[x][y].setSymbol(fullCell);
         }
 
-        //Выводим получившееся поле на экран
-        for (int i = 0; i < rows; i += 1) {
-            for (int j = 0; j < columns; j += 1) {
-                System.out.print(field[i][j].getSymbol());
-            }
-
-            System.out.println();
-        }
-
-        for (int i = 0; i < rows; i += 1) {
-            for (int j = 0; j < columns; j += 1) {
-                if (i == 0 && j == 0) {
-                    if (field[i][j + 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i + 1][j + 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i + 1][j].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    continue;
-                }
-
-                if (i == 0 && j == columns - 1) {
-                    if (field[i][j - 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i + 1][j].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i + 1][j - 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    continue;
-                }
-
-                if (i == rows - 1 && j == 0) {
-                    if (field[i - 1][j].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i - 1][j + 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i][j + 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    continue;
-                }
-
-                if (i == rows - 1 && j == columns - 1) {
-                    if (field[i - 1][j - 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i - 1][j].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i][j - 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    continue;
-                }
-
-                if (i == 0) {
-                    if (field[i][j - 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i][j + 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i + 1][j - 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i + 1][j].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i + 1][j + 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    continue;
-                }
-
-                if (j == 0) {
-                    if (field[i - 1][j].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i - 1][j + 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i][j + 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i + 1][j + 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i + 1][j].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    continue;
-                }
-
-                if (j == columns - 1) {
-                    if (field[i - 1][j - 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i - 1][j].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i][j - 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i + 1][j].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i + 1][j - 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    continue;
-                }
-
-                if (i == rows - 1) {
-                    if (field[i - 1][j - 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i - 1][j].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i - 1][j + 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i][j + 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i][j - 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    continue;
-                }
-
-                if (field[i - 1][j - 1].isFullNow()) {
-                    field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                }
-
-                if (field[i - 1][j].isFullNow()) {
-                    field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                }
-
-                if (field[i - 1][j + 1].isFullNow()) {
-                    field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                }
-
-                if (field[i][j - 1].isFullNow()) {
-                    field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                }
-
-                if (field[i][j + 1].isFullNow()) {
-                    field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                }
-
-                if (field[i + 1][j + 1].isFullNow()) {
-                    field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                }
-
-                if (field[i + 1][j].isFullNow()) {
-                    field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                }
-
-                if (field[i + 1][j - 1].isFullNow()) {
-                    field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                }
-            }
-        }
-
         boolean isWin = false;
         boolean isGameOver = false;
 
-        /*
         while (!isWin || !isGameOver) {
+            System.out.println();
+
+            //Выводим получившееся поле на экран
             for (int i = 0; i < rows; i += 1) {
                 for (int j = 0; j < columns; j += 1) {
+                    System.out.print(field[i][j].getSymbol());
+                }
 
+                System.out.println();
+            }
+
+            //Подсчитываем количество полных ячеек по соседству с каждой ячейкой
+            for (int i = 0; i < rows; i += 1) {
+                for (int j = 0; j < columns; j += 1) {
+                    if (i == 0 && j == 0) {
+                        if (field[i][j + 1].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        if (field[i + 1][j + 1].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        if (field[i + 1][j].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        continue;
+                    }
+
+                    if (i == 0 && j == columns - 1) {
+                        if (field[i][j - 1].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        if (field[i + 1][j].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        if (field[i + 1][j - 1].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        continue;
+                    }
+
+                    if (i == rows - 1 && j == 0) {
+                        if (field[i - 1][j].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        if (field[i - 1][j + 1].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        if (field[i][j + 1].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        continue;
+                    }
+
+                    if (i == rows - 1 && j == columns - 1) {
+                        if (field[i - 1][j - 1].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        if (field[i - 1][j].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        if (field[i][j - 1].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        continue;
+                    }
+
+                    if (i == 0) {
+                        if (field[i][j - 1].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        if (field[i][j + 1].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        if (field[i + 1][j - 1].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        if (field[i + 1][j].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        if (field[i + 1][j + 1].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        continue;
+                    }
+
+                    if (j == 0) {
+                        if (field[i - 1][j].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        if (field[i - 1][j + 1].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        if (field[i][j + 1].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        if (field[i + 1][j + 1].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        if (field[i + 1][j].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        continue;
+                    }
+
+                    if (j == columns - 1) {
+                        if (field[i - 1][j - 1].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        if (field[i - 1][j].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        if (field[i][j - 1].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        if (field[i + 1][j].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        if (field[i + 1][j - 1].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        continue;
+                    }
+
+                    if (i == rows - 1) {
+                        if (field[i - 1][j - 1].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        if (field[i - 1][j].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        if (field[i - 1][j + 1].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        if (field[i][j + 1].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        if (field[i][j - 1].isFullNow()) {
+                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                        }
+
+                        continue;
+                    }
+
+                    if (field[i - 1][j - 1].isFullNow()) {
+                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                    }
+
+                    if (field[i - 1][j].isFullNow()) {
+                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                    }
+
+                    if (field[i - 1][j + 1].isFullNow()) {
+                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                    }
+
+                    if (field[i][j - 1].isFullNow()) {
+                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                    }
+
+                    if (field[i][j + 1].isFullNow()) {
+                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                    }
+
+                    if (field[i + 1][j + 1].isFullNow()) {
+                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                    }
+
+                    if (field[i + 1][j].isFullNow()) {
+                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                    }
+
+                    if (field[i + 1][j - 1].isFullNow()) {
+                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+                    }
+                }
+            }
+
+            //Определяем будет ли ячейка полной или пустой в следующей генерации
+            for (int i = 0; i < rows; i += 1) {
+                for (int j = 0; j < columns; j += 1) {
+                    if (!field[i][j].isFullNow() && field[i][j].getFullNeighboursCount() == 3) {
+                        field[i][j].setSymbol(fullCell);
+
+                        continue;
+                    }
+
+                    if (field[i][j].isFullNow() && (field[i][j].getFullNeighboursCount() < 2 ||
+                            field[i][j].getFullNeighboursCount() > 3)) {
+                        field[i][j].setSymbol(emptyCell);
+                    }
                 }
             }
         }
-        */
     }
 }
