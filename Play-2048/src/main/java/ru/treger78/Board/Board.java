@@ -1,4 +1,6 @@
-package main.java.ru.treger78;
+package main.java.ru.treger78.Board;
+
+import main.java.ru.treger78.Key.Key;
 
 import java.util.HashMap;
 import java.util.List;

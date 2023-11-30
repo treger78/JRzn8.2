@@ -1,4 +1,4 @@
-package main.java.ru.treger78;
+package main.java.ru.treger78.Game;
 
 import java.util.List;
 

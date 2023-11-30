@@ -1,4 +1,7 @@
-package main.java.ru.treger78;
+package main.java.ru.treger78.Game;
+
+import main.java.ru.treger78.Board.Board;
+import main.java.ru.treger78.Direction.Direction;
 
 import java.util.Random;
 
