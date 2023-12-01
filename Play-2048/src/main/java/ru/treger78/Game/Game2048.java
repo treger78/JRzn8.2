@@ -6,15 +6,14 @@ import main.java.ru.treger78.Direction.Direction;
 import java.util.Random;
 
 public class Game2048 implements Game {
-    GameHelper helper = new GameHelper();
+    private GameHelper helper = new GameHelper();
+    private Random random = new Random();
 
-    Board board;
+    private Board board;
 
     public Game2048(Board board) {
         this.board = board;
     }
-
-    Random random = new Random();
 
     @Override
     public void init() {

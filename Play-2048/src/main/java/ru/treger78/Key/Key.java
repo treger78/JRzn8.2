@@ -1,8 +1,8 @@
 package main.java.ru.treger78.Key;
 
 public class Key {
-    int i;
-    int j;
+    private int i;
+    private int j;
 
     public Key(int i, int j) {
         this.i = i;

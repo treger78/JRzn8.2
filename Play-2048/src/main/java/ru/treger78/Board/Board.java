@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class Board {
-    int width;
-    int height;
+    private int width;
+    private int height;
 
-    Map<Key, Integer> board = new HashMap<>();
+    private Map<Key, Integer> board = new HashMap<>();
 
     public Board(int width, int height) {
         this.width = width;
