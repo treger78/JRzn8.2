@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
+import static main.java.ru.treger78.FullNeighboursChecker.*;
+
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -45,200 +47,60 @@ public class Main {
 
             printField(field, rows, columns);
 
-            //Подсчитываем количество полных ячеек по соседству с каждой ячейкой
+            /**
+             * Подсчитываем количество полных ячеек по соседству с каждой ячейкой
+             */
             for (int i = 0; i < rows; i += 1) {
                 for (int j = 0; j < columns; j += 1) {
                     if (i == 0 && j == 0) {
-                        if (field[i][j + 1].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
-
-                        if (field[i + 1][j + 1].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
-
-                        if (field[i + 1][j].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
+                        checkLeftTopCornerNeighbours(field, i, j);
 
                         continue;
                     }
 
                     if (i == 0 && j == columns - 1) {
-                        if (field[i][j - 1].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
-
-                        if (field[i + 1][j].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
-
-                        if (field[i + 1][j - 1].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
+                        checkRightTopCornerNeighbours(field, i, j);
 
                         continue;
                     }
 
                     if (i == rows - 1 && j == 0) {
-                        if (field[i - 1][j].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
-
-                        if (field[i - 1][j + 1].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
-
-                        if (field[i][j + 1].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
+                        checkLeftBottomCornerNeighbours(field, i, j);
 
                         continue;
                     }
 
                     if (i == rows - 1 && j == columns - 1) {
-                        if (field[i - 1][j - 1].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
-
-                        if (field[i - 1][j].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
-
-                        if (field[i][j - 1].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
+                        checkRightBottomCornerNeighbours(field, i, j);
 
                         continue;
                     }
 
                     if (i == 0) {
-                        if (field[i][j - 1].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
-
-                        if (field[i][j + 1].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
-
-                        if (field[i + 1][j - 1].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
-
-                        if (field[i + 1][j].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
-
-                        if (field[i + 1][j + 1].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
+                        checkTopWallNeighbours(field, i, j);
 
                         continue;
                     }
 
                     if (j == 0) {
-                        if (field[i - 1][j].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
-
-                        if (field[i - 1][j + 1].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
-
-                        if (field[i][j + 1].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
-
-                        if (field[i + 1][j + 1].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
-
-                        if (field[i + 1][j].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
+                        checkLeftWallNeighbours(field, i, j);
 
                         continue;
                     }
 
                     if (j == columns - 1) {
-                        if (field[i - 1][j - 1].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
-
-                        if (field[i - 1][j].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
-
-                        if (field[i][j - 1].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
-
-                        if (field[i + 1][j].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
-
-                        if (field[i + 1][j - 1].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
+                        checkRightWallNeighbours(field, i, j);
 
                         continue;
                     }
 
                     if (i == rows - 1) {
-                        if (field[i - 1][j - 1].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
-
-                        if (field[i - 1][j].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
-
-                        if (field[i - 1][j + 1].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
-
-                        if (field[i][j + 1].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
-
-                        if (field[i][j - 1].isFullNow()) {
-                            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                        }
+                        checkBottomWallNeighbours(field, i, j);
 
                         continue;
                     }
 
-                    if (field[i - 1][j - 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i - 1][j].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i - 1][j + 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i][j - 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i][j + 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i + 1][j + 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i + 1][j].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
-
-                    if (field[i + 1][j - 1].isFullNow()) {
-                        field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-                    }
+                    checkCellNeighbours(field, i, j);
                 }
             }
 
@@ -246,7 +108,7 @@ public class Main {
         }
     }
 
-    public static void calculateFullCellsPosition(int fullCells, int rows, int columns,
+    private static void calculateFullCellsPosition(int fullCells, int rows, int columns,
                                                   int[][] fullCellsPosition, int fullCellsRowIndex,
                                                   int fullCellsColumnIndex) {
         for (int i = 0; i < fullCells; i += 1) {
@@ -258,7 +120,7 @@ public class Main {
         }
     }
 
-    public static void initField(int rows, int columns, char emptyCell, Cell[][] field) {
+    private static void initField(int rows, int columns, char emptyCell, Cell[][] field) {
         for (int i = 0; i < rows; i += 1) {
             for (int j = 0; j < columns; j += 1) {
                 Cell cell = new Cell(false, emptyCell);
@@ -268,7 +130,7 @@ public class Main {
         }
     }
 
-    public static void addFullCellsByCalculatedPositions(int fullCells, int[][] fullCellsPosition,
+    private static void addFullCellsByCalculatedPositions(int fullCells, int[][] fullCellsPosition,
                                                          int fullCellsRowIndex, int fullCellsColumnIndex,
                                                          Cell[][] field, char fullCell) {
         for (int i = 0;  i < fullCells; i += 1) {
@@ -280,7 +142,7 @@ public class Main {
         }
     }
 
-    public static void printField(Cell[][] field, int rows, int columns) {
+    private static void printField(Cell[][] field, int rows, int columns) {
         for (int i = 0; i < rows; i += 1) {
             for (int j = 0; j < columns; j += 1) {
                 System.out.print(field[i][j].getSymbol());
@@ -290,20 +152,21 @@ public class Main {
         }
     }
 
-    public static void calculateNextGeneration(Cell[][] field, int rows, int columns, char fullCell, char emptyCell) {
+    private static void calculateNextGeneration(Cell[][] field, int rows, int columns, char fullCell, char emptyCell) {
         for (int i = 0; i < rows; i += 1) {
             for (int j = 0; j < columns; j += 1) {
                 if (!field[i][j].isFullNow() && field[i][j].getFullNeighboursCount() == 3) {
                     field[i][j].setSymbol(fullCell);
                     field[i][j].setFullNeighboursCount(0);
+                    field[i][j].setFullNow(true);
 
                     continue;
                 }
-
                 if (field[i][j].isFullNow() && (field[i][j].getFullNeighboursCount() < 2 ||
                         field[i][j].getFullNeighboursCount() > 3)) {
                     field[i][j].setSymbol(emptyCell);
                     field[i][j].setFullNeighboursCount(0);
+                    field[i][j].setFullNow(false);
                 }
             }
         }

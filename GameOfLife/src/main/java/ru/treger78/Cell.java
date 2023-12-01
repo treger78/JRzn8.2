@@ -2,7 +2,6 @@ package main.java.ru.treger78;
 
 public class Cell {
     private boolean isFullNow;
-    private boolean isWillBeFull;
     private int fullNeighboursCount = 0;
     private char symbol;
 
@@ -17,14 +16,6 @@ public class Cell {
 
     public void setFullNow(boolean fullNow) {
         isFullNow = fullNow;
-    }
-
-    public boolean isWillBeFull() {
-        return isWillBeFull;
-    }
-
-    public void setWillBeFull(boolean willBeFull) {
-        isWillBeFull = willBeFull;
     }
 
     public int getFullNeighboursCount() {
