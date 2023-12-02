@@ -5,7 +5,7 @@ import main.java.ru.treger78.Board.SquareBoard;
 import main.java.ru.treger78.Game.Game;
 import main.java.ru.treger78.Game.Game2048;
 
-public class Main {
+public class TestClass {
     public static void main(String[] args) {
         Board board = new SquareBoard(4);
 
