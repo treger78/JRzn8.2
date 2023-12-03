@@ -5,11 +5,8 @@ import main.java.ru.treger78.Key.Key;
 import java.util.List;
 
 public class SquareBoard extends Board {
-    private int size;
-
     public SquareBoard(int size) {
-        super();
-        this.size = size;
+        super(size, size);
     }
 
     @Override

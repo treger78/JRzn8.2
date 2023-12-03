@@ -17,10 +17,6 @@ public abstract class Board {
         this.height = height;
     }
 
-    public Board() {
-
-    }
-
     public abstract void fillBoard(List<Integer> list);
 
     public abstract List<Key> availableSpace();
