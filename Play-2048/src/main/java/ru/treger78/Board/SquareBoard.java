@@ -11,7 +11,11 @@ public class SquareBoard extends Board {
 
     @Override
     public void fillBoard(List<Integer> list) {
-
+        for (int i = 0; i < board.size(); i += 1) {
+            for (int j = 0; j < board.size(); j += 1) {
+                //addItem();
+            }
+        }
     }
 
     @Override
