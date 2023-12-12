@@ -123,7 +123,7 @@ public class Main {
     private static void initField(int rows, int columns, char emptyCell, Cell[][] field) {
         for (int i = 0; i < rows; i += 1) {
             for (int j = 0; j < columns; j += 1) {
-                Cell cell = new Cell(false, emptyCell);
+                Cell cell = new Cell(emptyCell);
 
                 field[i][j] = cell;
             }
@@ -156,17 +156,24 @@ public class Main {
         for (int i = 0; i < rows; i += 1) {
             for (int j = 0; j < columns; j += 1) {
                 if (!field[i][j].isFullNow() && field[i][j].getFullNeighboursCount() == 3) {
-                    field[i][j].setSymbol(fullCell);
-                    field[i][j].setFullNeighboursCount(0);
-                    field[i][j].setFullNow(true);
-
-                    continue;
+                    field[i][j].setWillBeFull(true);
                 }
+
                 if (field[i][j].isFullNow() && (field[i][j].getFullNeighboursCount() < 2 ||
                         field[i][j].getFullNeighboursCount() > 3)) {
+                    field[i][j].setWillBeFull(false);
+                }
+
+                field[i][j].setFullNeighboursCount(0);
+            }
+        }
+
+        for (int i = 0; i < rows; i += 1) {
+            for (int j = 0; j < columns; j += 1) {
+                if (field[i][j].isWillBeFull()) {
+                    field[i][j].setSymbol(fullCell);
+                } else {
                     field[i][j].setSymbol(emptyCell);
-                    field[i][j].setFullNeighboursCount(0);
-                    field[i][j].setFullNow(false);
                 }
             }
         }
