@@ -48,7 +48,7 @@ public class RequestHandler implements Runnable {
                                 "Бэк система: " + request +
                                         " НЕ ВЫПОЛНЕНА. Получена от " + this.name +
                                         ". Сумма больше баланса банка." +
-                                        ". Баланск банка: " + bank.getBalance()
+                                        " Баланск банка: " + bank.getBalance()
                         );
                     }
 

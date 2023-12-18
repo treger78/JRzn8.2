@@ -15,6 +15,6 @@ public class Client implements Runnable {
     public void run() {
         frontSystem.addRequest(this.request);
 
-        System.out.println(this.name + ": Заявка " + this.request + " отправлена в банк");
+        System.out.println(this.name + ": Заявка " + this.request.toString() + " отправлена в банк");
     }
 }

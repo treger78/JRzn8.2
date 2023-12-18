@@ -8,7 +8,7 @@ public class FrontSystem {
     public synchronized void addRequest(Request request) {
         while (requests.size() == 2) {
             try {
-                requests.wait();
+                wait();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -16,16 +16,16 @@ public class FrontSystem {
 
         requests.addLast(request);
 
-        requests.notifyAll();
+        notifyAll();
     }
 
     public Request getRequest() {
         Request request;
 
-        synchronized (requests) {
+        synchronized (this) {
             while (requests.isEmpty()) {
                 try {
-                    requests.wait();
+                    wait();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -33,7 +33,7 @@ public class FrontSystem {
 
             request = requests.pollFirst();
 
-            requests.notifyAll();
+            notifyAll();
         }
 
         return request;

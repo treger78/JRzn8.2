@@ -22,4 +22,11 @@ public class Request {
     public RequestTypes getRequestType() {
         return requestType;
     }
+
+    @Override
+    public String toString() {
+        return "{clientThreadName='" + this.clientTreadName + "', " +
+                "amount=" + this.amount + ", " +
+                "requestType=" + this.requestType + "}";
+    }
 }
