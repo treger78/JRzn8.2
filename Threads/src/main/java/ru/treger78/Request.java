@@ -1,25 +1,25 @@
 package main.java.ru.treger78;
 
 public class Request {
-    private String clientTreadName;
-    private long amount;
-    private Enum requestType;
+    private final String clientTreadName;
+    private final long amount;
+    private final RequestTypes requestType;
 
-    public Request(String clientTreadName, long amount, Enum requestType) {
+    public Request(String clientTreadName, long amount, RequestTypes requestType) {
         this.clientTreadName = clientTreadName;
         this.amount = amount;
         this.requestType = requestType;
-    }
-
-    public String getClientTreadName() {
-        return clientTreadName;
     }
 
     public long getAmount() {
         return amount;
     }
 
-    public Enum getRequestType() {
+    public String getClientTreadName() {
+        return clientTreadName;
+    }
+
+    public RequestTypes getRequestType() {
         return requestType;
     }
 }
