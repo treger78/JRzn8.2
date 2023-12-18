@@ -8,31 +8,26 @@ public class Main {
         RequestHandler requestHandler2 = new RequestHandler("handler2", frontSystem, bank);
 
         Client client1 = new Client(
-                "client1",
                 new Request("client1", 10_000, RequestTypes.REPAYMENT),
                 frontSystem
         );
 
         Client client2 = new Client(
-                "client2",
                 new Request("client2", 15_000, RequestTypes.REPAYMENT),
                 frontSystem
         );
 
         Client client3 = new Client(
-                "client3",
                 new Request("client3", 20_000, RequestTypes.REPAYMENT),
                 frontSystem
         );
 
         Client client4 = new Client(
-                "client4",
                 new Request("client4", 5_000, RequestTypes.CREDIT),
                 frontSystem
         );
 
         Client client5 = new Client(
-                "client5",
                 new Request("client5", 150_000, RequestTypes.CREDIT),
                 frontSystem
         );

@@ -22,11 +22,7 @@ public class RequestHandler implements Runnable {
                 case REPAYMENT: {
                     bank.setBalance(bank.getBalance() + request.getAmount());
 
-                    System.out.println(
-                            "Бэк система: " + request +
-                                    " УСПЕШНО ВЫПОЛНЕНА. Получена от " + this.name +
-                                    ". Баланск банка: " + bank.getBalance()
-                    );
+                    printMessage(request, true);
 
                     break;
                 }
@@ -36,20 +32,11 @@ public class RequestHandler implements Runnable {
                     long amountFromRequest = request.getAmount();
 
                     if (balance - amountFromRequest >= 0) {
-                        bank.setBalance(bank.getBalance() - request.getAmount());
+                        bank.setBalance(balance - amountFromRequest);
 
-                        System.out.println(
-                                "Бэк система: " + request +
-                                        " УСПЕШНО ВЫПОЛНЕНА. Получена от " + this.name +
-                                        ". Баланск банка: " + bank.getBalance()
-                        );
+                        printMessage(request, true);
                     } else {
-                        System.out.println(
-                                "Бэк система: " + request +
-                                        " НЕ ВЫПОЛНЕНА. Получена от " + this.name +
-                                        ". Сумма больше баланса банка." +
-                                        " Баланск банка: " + bank.getBalance()
-                        );
+                        printMessage(request, false);
                     }
 
                     break;
@@ -58,5 +45,15 @@ public class RequestHandler implements Runnable {
                 default: break;
             }
         }
+    }
+
+    public void printMessage(Request request, boolean isSuccessRequest) {
+        String status = isSuccessRequest ? "УСПЕШНО ВЫПОЛНЕНА" : "НЕ ВЫПОЛНЕНА";
+        System.out.println(
+                "Бэк система: " + request +
+                        " " + status + ". Получена от " + this.name +
+                        (isSuccessRequest ? "" : ". Сумма больше баланса банка.") +
+                        " Баланск банка: " + bank.getBalance()
+        );
     }
 }
