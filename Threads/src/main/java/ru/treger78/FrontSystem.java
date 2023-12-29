@@ -19,22 +19,18 @@ public class FrontSystem {
         notifyAll();
     }
 
-    public Request getRequest() {
-        Request request;
-
-        synchronized (this) {
-            while (requests.isEmpty()) {
-                try {
-                    wait();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+    public synchronized Request getRequest() {
+        while (requests.isEmpty()) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
-
-            request = requests.pollFirst();
-
-            notifyAll();
         }
+
+        Request request = requests.pollFirst();
+
+        notifyAll();
 
         return request;
     }

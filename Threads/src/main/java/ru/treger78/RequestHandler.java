@@ -12,7 +12,7 @@ public class RequestHandler implements Runnable {
     }
 
     @Override
-    public void run() {
+    public synchronized void run() {
         while (true) {
             Request request = frontSystem.getRequest();
 
