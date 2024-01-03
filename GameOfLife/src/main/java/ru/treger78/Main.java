@@ -30,6 +30,7 @@ public class Main {
         System.out.println("Full cells at: " + Arrays.deepToString(fullCellsPosition));
 
         Cell[][] field = new Cell[rows][columns];
+        Cell[][] tempField = new Cell[rows][columns];
 
         char emptyCell = '.';
         char fullCell = '*';
@@ -104,7 +105,7 @@ public class Main {
                 }
             }
 
-            calculateNextGeneration(field, rows, columns, fullCell, emptyCell);
+            calculateNextGeneration(field, tempField, rows, columns, fullCell, emptyCell);
         }
     }
 
@@ -150,30 +151,31 @@ public class Main {
         }
     }
 
-    private static void calculateNextGeneration(Cell[][] field, int rows, int columns, char fullCell, char emptyCell) {
+    //Необходимо иметь два массива: изначальный field и временный tempField
+    //Проходим по первому массиву и создаем полную или пустую клетку во втором, согласно правилам
+    //учитываем проверку на isWin & isGameOver:
+    //если в процессе заполнения второго массива встречается хоть одна живая клетка, то isGameOver = false;
+    //если в процессе заполнения второго массива выясняется что состояние хотя бы одной клетки из..
+    //..первого массива отлично от состояния той же клетки во втором массиве, то isWin = false
+    private static void calculateNextGeneration(Cell[][] field, Cell[][] tempField, int rows, int columns, char fullCell, char emptyCell) {
         for (int i = 0; i < rows; i += 1) {
             for (int j = 0; j < columns; j += 1) {
-                if (!field[i][j].isFullNow() && field[i][j].getFullNeighboursCount() == 3) {
-                    field[i][j].setWillBeFull(true);
+                if (
+                        (!field[i][j].isFullNow() && field[i][j].getFullNeighboursCount() == 3) ||
+                                (field[i][j].isFullNow() && (field[i][j].getFullNeighboursCount() == 2 ||
+                                        field[i][j].getFullNeighboursCount() == 3))
+                ) {
+                    tempField[i][j] = new Cell(fullCell);
+                    tempField[i][j].setFullNow(true);
+                } else {
+                    tempField[i][j] = new Cell(emptyCell);
+                    tempField[i][j].setFullNow(false);
                 }
-
-                if (field[i][j].isFullNow() && (field[i][j].getFullNeighboursCount() < 2 ||
-                        field[i][j].getFullNeighboursCount() > 3)) {
-                    field[i][j].setWillBeFull(false);
-                }
-
-                field[i][j].setFullNeighboursCount(0);
             }
         }
 
         for (int i = 0; i < rows; i += 1) {
-            for (int j = 0; j < columns; j += 1) {
-                if (field[i][j].isWillBeFull()) {
-                    field[i][j].setSymbol(fullCell);
-                } else {
-                    field[i][j].setSymbol(emptyCell);
-                }
-            }
+            if (columns >= 0) System.arraycopy(tempField[i], 0, field[i], 0, columns);
         }
     }
 }
