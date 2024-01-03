@@ -1,13 +1,16 @@
 package main.java.ru.treger78;
 
 public class Cell {
-    private boolean isFullNow = false;
-    private boolean isWillBeFull = false;
-    private int fullNeighboursCount = 0;
+    private boolean isFullNow;
+    private boolean isWillBeFull;
+    private int fullNeighboursCount;
     private char symbol;
 
     public Cell(char symbol) {
         this.symbol = symbol;
+        this.isFullNow = false;
+        this.isWillBeFull = false;
+        this.fullNeighboursCount = 0;
     }
 
     public boolean isFullNow() {

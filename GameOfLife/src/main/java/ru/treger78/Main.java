@@ -24,7 +24,7 @@ public class Main {
         int fullCellsRowIndex = 0;
         int fullCellsColumnIndex = 1;
 
-        calculateFullCellsPosition(fullCells, rows, columns, fullCellsPosition,
+        generateInitialFullCellsPositions(fullCells, rows, columns, fullCellsPosition,
                 fullCellsRowIndex, fullCellsColumnIndex);
 
         System.out.println("Full cells at: " + Arrays.deepToString(fullCellsPosition));
@@ -34,9 +34,9 @@ public class Main {
         char emptyCell = '.';
         char fullCell = '*';
 
-        initField(rows, columns, emptyCell, field);
+        fillInitialField(rows, columns, emptyCell, field);
 
-        addFullCellsByCalculatedPositions(fullCells, fullCellsPosition, fullCellsRowIndex,
+        addInitialFullCellsByGeneratedPositions(fullCells, fullCellsPosition, fullCellsRowIndex,
                 fullCellsColumnIndex, field, fullCell);
 
         boolean isWin = false; //Если следующее состояние повторяет текущее
@@ -108,7 +108,7 @@ public class Main {
         }
     }
 
-    private static void calculateFullCellsPosition(int fullCells, int rows, int columns,
+    private static void generateInitialFullCellsPositions(int fullCells, int rows, int columns,
                                                   int[][] fullCellsPosition, int fullCellsRowIndex,
                                                   int fullCellsColumnIndex) {
         for (int i = 0; i < fullCells; i += 1) {
@@ -120,17 +120,15 @@ public class Main {
         }
     }
 
-    private static void initField(int rows, int columns, char emptyCell, Cell[][] field) {
+    private static void fillInitialField(int rows, int columns, char emptyCell, Cell[][] field) {
         for (int i = 0; i < rows; i += 1) {
             for (int j = 0; j < columns; j += 1) {
-                Cell cell = new Cell(emptyCell);
-
-                field[i][j] = cell;
+                field[i][j] = new Cell(emptyCell);
             }
         }
     }
 
-    private static void addFullCellsByCalculatedPositions(int fullCells, int[][] fullCellsPosition,
+    private static void addInitialFullCellsByGeneratedPositions(int fullCells, int[][] fullCellsPosition,
                                                          int fullCellsRowIndex, int fullCellsColumnIndex,
                                                          Cell[][] field, char fullCell) {
         for (int i = 0;  i < fullCells; i += 1) {

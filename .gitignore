@@ -1,0 +1,32 @@
+### IntelliJ IDEA ###
+out
+!srcmainout
+!srctestout
+.idea
+.iml
+.class
+
+### Eclipse ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin
+!srcmainbin
+!srctestbin
+
+### NetBeans ###
+nbprojectprivate
+nbbuild
+dist
+nbdist
+.nb-gradle
+
+### VS Code ###
+.vscode
+
+### Mac OS ###
+.DS_Store
