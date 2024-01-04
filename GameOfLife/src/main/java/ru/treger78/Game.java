@@ -4,7 +4,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Game {
     private boolean isWin; //Если следующее состояние повторяет текущее
-    private boolean isGameOver; ////Если не осталось ни одной полной ячейки
+    private boolean isGameOver; //Если не осталось ни одной полной ячейки
 
     public Game() {
         this.isWin = false;
@@ -90,18 +90,12 @@ public class Game {
             }
         }
 
-        // if false => isGameOver = true
-        if (!hasFullCell) {
-            this.isGameOver = true;
-        }
+        if (!hasFullCell) { this.isGameOver = true; } // if false => isGameOver = true
 
-        // if false => isWin = true
-        if (!hasDifferentState) {
-            this.isWin = true;
-        }
+        if (!hasDifferentState) { this.isWin = true; } // if false => isWin = true
 
         for (int i = 0; i < rows; i += 1) {
-            if (columns >= 0) System.arraycopy(tempField[i], 0, field[i], 0, columns);
+            System.arraycopy(tempField[i], 0, field[i], 0, columns);
         }
     }
 }
