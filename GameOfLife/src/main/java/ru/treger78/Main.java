@@ -2,12 +2,12 @@ package main.java.ru.treger78;
 
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.concurrent.ThreadLocalRandom;
 
 import static main.java.ru.treger78.FullNeighboursChecker.*;
 
 public class Main {
     public static void main(String[] args) {
+        Game game = new Game();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter field size - rows and columns:");
@@ -24,7 +24,7 @@ public class Main {
         int fullCellsRowIndex = 0;
         int fullCellsColumnIndex = 1;
 
-        generateInitialFullCellsPositions(fullCells, rows, columns, fullCellsPosition,
+        game.generateInitialFullCellsPositions(fullCells, rows, columns, fullCellsPosition,
                 fullCellsRowIndex, fullCellsColumnIndex);
 
         System.out.println("Full cells at: " + Arrays.deepToString(fullCellsPosition));
@@ -35,18 +35,17 @@ public class Main {
         char emptyCell = '.';
         char fullCell = '*';
 
-        fillInitialField(rows, columns, emptyCell, field);
+        game.fillInitialField(rows, columns, emptyCell, field);
 
-        addInitialFullCellsByGeneratedPositions(fullCells, fullCellsPosition, fullCellsRowIndex,
+        game.addInitialFullCellsByGeneratedPositions(fullCells, fullCellsPosition, fullCellsRowIndex,
                 fullCellsColumnIndex, field, fullCell);
 
-        boolean isWin = false; //Если следующее состояние повторяет текущее
-        boolean isGameOver = false; //Если не осталось ни одной полной ячейки
+        boolean hasContinue = true;
 
-        while (!isWin || !isGameOver) {
+        while (hasContinue) {
             System.out.println();
 
-            printField(field, rows, columns);
+            game.printField(field, rows, columns);
 
             /**
              * Подсчитываем количество полных ячеек по соседству с каждой ячейкой
@@ -105,77 +104,21 @@ public class Main {
                 }
             }
 
-            calculateNextGeneration(field, tempField, rows, columns, fullCell, emptyCell);
-        }
-    }
+            game.calculateNextGeneration(field, tempField, rows, columns, fullCell, emptyCell);
 
-    private static void generateInitialFullCellsPositions(int fullCells, int rows, int columns,
-                                                  int[][] fullCellsPosition, int fullCellsRowIndex,
-                                                  int fullCellsColumnIndex) {
-        for (int i = 0; i < fullCells; i += 1) {
-            int randomRow = ThreadLocalRandom.current().nextInt(0, rows);
-            int randomColumn = ThreadLocalRandom.current().nextInt(0, columns);
+            if (game.isWin() || game.isGameOver()) {
+                hasContinue = false;
 
-            fullCellsPosition[i][fullCellsRowIndex] = randomRow;
-            fullCellsPosition[i][fullCellsColumnIndex] = randomColumn;
-        }
-    }
+                System.out.println();
 
-    private static void fillInitialField(int rows, int columns, char emptyCell, Cell[][] field) {
-        for (int i = 0; i < rows; i += 1) {
-            for (int j = 0; j < columns; j += 1) {
-                field[i][j] = new Cell(emptyCell);
-            }
-        }
-    }
+                game.printField(field, rows, columns);
 
-    private static void addInitialFullCellsByGeneratedPositions(int fullCells, int[][] fullCellsPosition,
-                                                         int fullCellsRowIndex, int fullCellsColumnIndex,
-                                                         Cell[][] field, char fullCell) {
-        for (int i = 0;  i < fullCells; i += 1) {
-            int x = fullCellsPosition[i][fullCellsRowIndex];
-            int y = fullCellsPosition[i][fullCellsColumnIndex];
-
-            field[x][y].setFullNow(true);
-            field[x][y].setSymbol(fullCell);
-        }
-    }
-
-    private static void printField(Cell[][] field, int rows, int columns) {
-        for (int i = 0; i < rows; i += 1) {
-            for (int j = 0; j < columns; j += 1) {
-                System.out.print(field[i][j].getSymbol());
-            }
-
-            System.out.println();
-        }
-    }
-
-    //Необходимо иметь два массива: изначальный field и временный tempField
-    //Проходим по первому массиву и создаем полную или пустую клетку во втором, согласно правилам
-    //учитываем проверку на isWin & isGameOver:
-    //если в процессе заполнения второго массива встречается хоть одна живая клетка, то isGameOver = false;
-    //если в процессе заполнения второго массива выясняется что состояние хотя бы одной клетки из..
-    //..первого массива отлично от состояния той же клетки во втором массиве, то isWin = false
-    private static void calculateNextGeneration(Cell[][] field, Cell[][] tempField, int rows, int columns, char fullCell, char emptyCell) {
-        for (int i = 0; i < rows; i += 1) {
-            for (int j = 0; j < columns; j += 1) {
-                if (
-                        (!field[i][j].isFullNow() && field[i][j].getFullNeighboursCount() == 3) ||
-                                (field[i][j].isFullNow() && (field[i][j].getFullNeighboursCount() == 2 ||
-                                        field[i][j].getFullNeighboursCount() == 3))
-                ) {
-                    tempField[i][j] = new Cell(fullCell);
-                    tempField[i][j].setFullNow(true);
+                if (game.isGameOver()) {
+                    System.out.println("All cells are empty. Game over.");
                 } else {
-                    tempField[i][j] = new Cell(emptyCell);
-                    tempField[i][j].setFullNow(false);
+                    System.out.println("You win! The generation repeated the previous state.");
                 }
             }
-        }
-
-        for (int i = 0; i < rows; i += 1) {
-            if (columns >= 0) System.arraycopy(tempField[i], 0, field[i], 0, columns);
         }
     }
 }
