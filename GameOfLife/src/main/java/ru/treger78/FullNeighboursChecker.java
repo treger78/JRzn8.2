@@ -1,7 +1,16 @@
 package main.java.ru.treger78;
 
 public class FullNeighboursChecker {
-    private void checkLeftTopCornerNeighbours(Cell[][] field, int i, int j) {
+    private final Cell[][] field;
+    private final int rows;
+    private final int columns;
+    public FullNeighboursChecker(Cell[][] field, int rows, int columns) {
+        this.field = field;
+        this.rows = rows;
+        this.columns = columns;
+    }
+
+    private void checkLeftTopCornerNeighbours(int i, int j) {
         if (field[i][j + 1].isFullNow()) {
             field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
         }
@@ -15,7 +24,7 @@ public class FullNeighboursChecker {
         }
     }
 
-    private void checkRightTopCornerNeighbours(Cell[][] field, int i, int j) {
+    private void checkRightTopCornerNeighbours(int i, int j) {
         if (field[i][j - 1].isFullNow()) {
             field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
         }
@@ -29,7 +38,7 @@ public class FullNeighboursChecker {
         }
     }
 
-    private void checkLeftBottomCornerNeighbours(Cell[][] field, int i, int j) {
+    private void checkLeftBottomCornerNeighbours(int i, int j) {
         if (field[i - 1][j].isFullNow()) {
             field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
         }
@@ -43,7 +52,7 @@ public class FullNeighboursChecker {
         }
     }
 
-    private void checkRightBottomCornerNeighbours(Cell[][] field, int i, int j) {
+    private void checkRightBottomCornerNeighbours(int i, int j) {
         if (field[i - 1][j - 1].isFullNow()) {
             field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
         }
@@ -57,7 +66,7 @@ public class FullNeighboursChecker {
         }
     }
 
-    private void checkTopWallNeighbours(Cell[][] field, int i, int j) {
+    private void checkTopWallNeighbours(int i, int j) {
         if (field[i][j - 1].isFullNow()) {
             field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
         }
@@ -79,86 +88,12 @@ public class FullNeighboursChecker {
         }
     }
 
-    private void checkLeftWallNeighbours(Cell[][] field, int i, int j) {
+    private void checkLeftWallNeighbours(int i, int j) {
         if (field[i - 1][j].isFullNow()) {
             field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
         }
 
         if (field[i - 1][j + 1].isFullNow()) {
-            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-        }
-
-        if (field[i][j + 1].isFullNow()) {
-            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-        }
-
-        if (field[i + 1][j + 1].isFullNow()) {
-            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-        }
-
-        if (field[i + 1][j].isFullNow()) {
-            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-        }
-    }
-
-    private void checkRightWallNeighbours(Cell[][] field, int i, int j) {
-        if (field[i - 1][j - 1].isFullNow()) {
-            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-        }
-
-        if (field[i - 1][j].isFullNow()) {
-            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-        }
-
-        if (field[i][j - 1].isFullNow()) {
-            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-        }
-
-        if (field[i + 1][j].isFullNow()) {
-            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-        }
-
-        if (field[i + 1][j - 1].isFullNow()) {
-            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-        }
-    }
-
-    private void checkBottomWallNeighbours(Cell[][] field, int i, int j) {
-        if (field[i - 1][j - 1].isFullNow()) {
-            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-        }
-
-        if (field[i - 1][j].isFullNow()) {
-            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-        }
-
-        if (field[i - 1][j + 1].isFullNow()) {
-            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-        }
-
-        if (field[i][j + 1].isFullNow()) {
-            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-        }
-
-        if (field[i][j - 1].isFullNow()) {
-            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-        }
-    }
-
-    private void checkCellNeighbours(Cell[][] field, int i, int j) {
-        if (field[i - 1][j - 1].isFullNow()) {
-            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-        }
-
-        if (field[i - 1][j].isFullNow()) {
-            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-        }
-
-        if (field[i - 1][j + 1].isFullNow()) {
-            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
-        }
-
-        if (field[i][j - 1].isFullNow()) {
             field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
         }
 
@@ -173,64 +108,138 @@ public class FullNeighboursChecker {
         if (field[i + 1][j].isFullNow()) {
             field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
         }
+    }
+
+    private void checkRightWallNeighbours(int i, int j) {
+        if (field[i - 1][j - 1].isFullNow()) {
+            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+        }
+
+        if (field[i - 1][j].isFullNow()) {
+            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+        }
+
+        if (field[i][j - 1].isFullNow()) {
+            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+        }
+
+        if (field[i + 1][j].isFullNow()) {
+            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+        }
 
         if (field[i + 1][j - 1].isFullNow()) {
             field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
         }
     }
 
-    public void calculateFullNeighboursCount(int rows, int columns, Cell[][] field) {
+    private void checkBottomWallNeighbours(int i, int j) {
+        if (field[i - 1][j - 1].isFullNow()) {
+            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+        }
+
+        if (field[i - 1][j].isFullNow()) {
+            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+        }
+
+        if (field[i - 1][j + 1].isFullNow()) {
+            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+        }
+
+        if (field[i][j + 1].isFullNow()) {
+            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+        }
+
+        if (field[i][j - 1].isFullNow()) {
+            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+        }
+    }
+
+    private void checkCellNeighbours(int i, int j) {
+        if (field[i - 1][j - 1].isFullNow()) {
+            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+        }
+
+        if (field[i - 1][j].isFullNow()) {
+            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+        }
+
+        if (field[i - 1][j + 1].isFullNow()) {
+            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+        }
+
+        if (field[i][j - 1].isFullNow()) {
+            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+        }
+
+        if (field[i][j + 1].isFullNow()) {
+            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+        }
+
+        if (field[i + 1][j + 1].isFullNow()) {
+            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+        }
+
+        if (field[i + 1][j].isFullNow()) {
+            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+        }
+
+        if (field[i + 1][j - 1].isFullNow()) {
+            field[i][j].setFullNeighboursCount(field[i][j].getFullNeighboursCount() + 1);
+        }
+    }
+
+    public void calculateFullNeighboursCount() {
         for (int i = 0; i < rows; i += 1) {
             for (int j = 0; j < columns; j += 1) {
                 if (i == 0 && j == 0) {
-                    this.checkLeftTopCornerNeighbours(field, i, j);
+                    this.checkLeftTopCornerNeighbours(i, j);
 
                     continue;
                 }
 
                 if (i == 0 && j == columns - 1) {
-                    this.checkRightTopCornerNeighbours(field, i, j);
+                    this.checkRightTopCornerNeighbours(i, j);
 
                     continue;
                 }
 
                 if (i == rows - 1 && j == 0) {
-                    this.checkLeftBottomCornerNeighbours(field, i, j);
+                    this.checkLeftBottomCornerNeighbours(i, j);
 
                     continue;
                 }
 
                 if (i == rows - 1 && j == columns - 1) {
-                    this.checkRightBottomCornerNeighbours(field, i, j);
+                    this.checkRightBottomCornerNeighbours(i, j);
 
                     continue;
                 }
 
                 if (i == 0) {
-                    this.checkTopWallNeighbours(field, i, j);
+                    this.checkTopWallNeighbours(i, j);
 
                     continue;
                 }
 
                 if (j == 0) {
-                    this.checkLeftWallNeighbours(field, i, j);
+                    this.checkLeftWallNeighbours(i, j);
 
                     continue;
                 }
 
                 if (j == columns - 1) {
-                    this.checkRightWallNeighbours(field, i, j);
+                    this.checkRightWallNeighbours(i, j);
 
                     continue;
                 }
 
                 if (i == rows - 1) {
-                    this.checkBottomWallNeighbours(field, i, j);
+                    this.checkBottomWallNeighbours(i, j);
 
                     continue;
                 }
 
-                checkCellNeighbours(field, i, j);
+                checkCellNeighbours(i, j);
             }
         }
     }
