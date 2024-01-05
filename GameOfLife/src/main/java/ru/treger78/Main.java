@@ -3,11 +3,10 @@ package main.java.ru.treger78;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import static main.java.ru.treger78.FullNeighboursChecker.*;
-
 public class Main {
     public static void main(String[] args) {
         Game game = new Game();
+        FullNeighboursChecker fullNeighboursChecker = new FullNeighboursChecker();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Enter field size - rows and columns:");
@@ -50,59 +49,7 @@ public class Main {
             /**
              * Подсчитываем количество полных ячеек по соседству с каждой ячейкой
              */
-            for (int i = 0; i < rows; i += 1) {
-                for (int j = 0; j < columns; j += 1) {
-                    if (i == 0 && j == 0) {
-                        checkLeftTopCornerNeighbours(field, i, j);
-
-                        continue;
-                    }
-
-                    if (i == 0 && j == columns - 1) {
-                        checkRightTopCornerNeighbours(field, i, j);
-
-                        continue;
-                    }
-
-                    if (i == rows - 1 && j == 0) {
-                        checkLeftBottomCornerNeighbours(field, i, j);
-
-                        continue;
-                    }
-
-                    if (i == rows - 1 && j == columns - 1) {
-                        checkRightBottomCornerNeighbours(field, i, j);
-
-                        continue;
-                    }
-
-                    if (i == 0) {
-                        checkTopWallNeighbours(field, i, j);
-
-                        continue;
-                    }
-
-                    if (j == 0) {
-                        checkLeftWallNeighbours(field, i, j);
-
-                        continue;
-                    }
-
-                    if (j == columns - 1) {
-                        checkRightWallNeighbours(field, i, j);
-
-                        continue;
-                    }
-
-                    if (i == rows - 1) {
-                        checkBottomWallNeighbours(field, i, j);
-
-                        continue;
-                    }
-
-                    checkCellNeighbours(field, i, j);
-                }
-            }
+            fullNeighboursChecker.calculateFullNeighboursCount(rows, columns, field);
 
             game.calculateNextGeneration(field, tempField, rows, columns, fullCell, emptyCell);
 
